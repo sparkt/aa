@@ -1,11 +1,10 @@
 package com.wudi.interceptor;
 
 
-import javax.servlet.http.HttpSession;
-
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 import com.jfinal.core.Controller;
+import com.wudi.util.Util;
 
 /**
  * 后台数据管理拦截器
@@ -15,9 +14,17 @@ import com.jfinal.core.Controller;
  */
 public class AdminInterceptor implements Interceptor {
 	public void intercept(Invocation inv) {
-		inv.invoke(); 
-                   
-	}
+		Controller c = inv.getController();
+		String sessionId = c.getCookie(Util.SESSION_NAME);
+		if (sessionId != null) {
+		// 用户登录账号
+			inv.invoke();
+		} else {
+		// cookie 登录未成功，证明该 cookie 已经没有用处，删之
+		c.removeCookie(Util.SESSION_NAME);
+		c.redirect("/admin/login");
+		}
+		}
 	       
 }
 	

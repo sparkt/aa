@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.Random;
 
 public class Util {
+	public final static String SESSION_NAME="sname";
+	public final static String SESSION_PASSW="spwd";
     /**
      * 从输入流中获取字节数组
      * @param inputStream

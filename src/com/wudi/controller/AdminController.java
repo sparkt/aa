@@ -2,8 +2,12 @@ package com.wudi.controller;
 
 import java.util.List;
 
+import com.jfinal.aop.Before;
+import com.jfinal.aop.Clear;
+import com.jfinal.aop.Interceptor;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
+import com.wudi.interceptor.AdminInterceptor;
 import com.wudi.model.admin.NavsModel;
 
 /**
@@ -14,7 +18,23 @@ import com.wudi.model.admin.NavsModel;
  * @date 2018年10月29日下午4:08:09
  *
  */
+@Before(AdminInterceptor.class)
 public class AdminController extends Controller {
+	@Clear(AdminInterceptor.class)
+	public void login() {
+		String username=getPara("username");
+		String password=getPara("password");
+		//判断用户名和密码是否正确
+		if("1".equals(username)) {
+			
+		}else {
+			
+			render("login/login.html");
+		}
+		//如果不正确，就提示什么不正确？
+		//如果正确，就正常显示系统页面
+		
+	}
 	/**
 	 * 
 	 * @Title: index @Description:后台管理默认到达页面 @param 参数 @return void 返回类型 @throws
