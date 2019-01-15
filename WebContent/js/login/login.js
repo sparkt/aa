@@ -30,25 +30,25 @@ layui.config({
 	          success:function(d){
 	        	  	var r=d.result;
 	        	  	console.log(r);
-	        	  		if(r==1){
+	        	  		if(r==0){
 					  		top.layer.msg("登陆成功！");
-					  		window.location.href='../../admin';
+					  		window.location.href='admin';
 		        	  	}
-		        	  	else if(r==2){
+		        	  	else if(r==1){
 		        	  		layer.open({
 		                        content: '密码错误！',
 		                        btn: ['确认'],
 		                        yes: function(index, layero) {
-		                            window.location.href='login.html';
+		                            window.location.href='admin';
 		                        }
 		                    });
 		        	  	}
-		        	  	else if(r==0){
+		        	  	else if(r==2){
 		        	  		layer.open({
 		                        content: '用户不存在！',
 		                        btn: ['确认',],
 		                        yes: function(index, layero) {
-		                            window.location.href='login.html';
+		                            window.location.href='admin';
 		                        }
 		                    });
 		        	  	} 			

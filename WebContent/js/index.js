@@ -129,6 +129,7 @@ layui.config({
 		window.sessionStorage.removeItem("menu");
 		menu = [];
 		window.sessionStorage.removeItem("curmenu");
+		window.location.href='admin/outLogin';
 	})
 
 	//隐藏左侧导航

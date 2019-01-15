@@ -15,6 +15,7 @@ import com.wudi.controller.WeixinController;
 import com.wudi.interceptor.AdminInterceptor;
 import com.wudi.interceptor.WeixinIntercepter;
 import com.wudi.model.admin.NavsModel;
+import com.wudi.model.admin.UserModel;
 /**
  * 	系统配置类
  *   @author XIAO
@@ -64,6 +65,7 @@ public class Config extends JFinalConfig {
 		{
 			//将数据库表，绑定到这来来，注意，表名和类要相对应
 			arpMysql.addMapping("navs", NavsModel.class);//主页面左侧菜单显示的表
+			arpMysql.addMapping("user", UserModel.class);//主页面左侧菜单显示的表
 		}
 		//添加插件
 		me.add(dsMysql);

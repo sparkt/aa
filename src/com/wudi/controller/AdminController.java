@@ -4,11 +4,12 @@ import java.util.List;
 
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
-import com.jfinal.aop.Interceptor;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Page;
 import com.wudi.interceptor.AdminInterceptor;
 import com.wudi.model.admin.NavsModel;
+import com.wudi.model.admin.UserModel;
+import com.wudi.util.Util;
 
 /**
  * 
@@ -24,23 +25,36 @@ public class AdminController extends Controller {
 	public void login() {
 		String username=getPara("username");
 		String password=getPara("password");
-		//判断用户名和密码是否正确
-		if("1".equals(username)) {
-			
-		}else {
-			
-			render("login/login.html");
-		}
 		//如果不正确，就提示什么不正确？
 		//如果正确，就正常显示系统页面
-		
+		UserModel m=UserModel.getModeByUsername(username);
+		//判断用户名和密码是否正确
+		if(m!=null) {
+			if(m.getpassword().equals(password)) {
+				setAttr("result", 0);//可以登录
+				setCookie(Util.Cookie_NAME,username,36000);
+				setSessionAttr("user", m);
+			}else {
+				setAttr("result", 1);//密码错误
+			}
+		}else {
+			setAttr("result", 2);//用户名不存在
+		}
+		renderJson();
+	}
+	@Clear(AdminInterceptor.class)
+	public void outLogin() {
+		removeCookie(Util.Cookie_NAME);
+		removeSessionAttr("user");
+		redirect("/admin");
 	}
 	/**
 	 * 
 	 * @Title: index @Description:后台管理默认到达页面 @param 参数 @return void 返回类型 @throws
 	 */
 	public void index() {
-		render("index.html");
+		setAttr("user", getSessionAttr("user"));
+		renderFreeMarker("index.html");
 	}
 	public void main() {
 		render("main.html");
